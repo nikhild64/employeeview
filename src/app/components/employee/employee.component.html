@@ -1,0 +1,86 @@
+<div>
+  <p>
+    Sort by name, joining date.
+
+  </p>
+  <button (click)="sortByName(0)">Sort By name Asc</button>
+  <button (click)="sortByName(1)">Sort By name Desc</button>
+  <br>
+  <button (click)="sortByJDate(0)">Sort By Joining Date Asc</button>
+  <button (click)="sortByJDate(1)">Sort By Joining Date Desc</button>
+</div>
+<div>
+  <p>
+    Search by name.
+  </p>
+  <input type="text" [(ngModel)]="searchInput" placeholder="start typing to filter">
+
+</div>
+<div>
+  <p>
+    All candidates with experience more than 2 years.
+  </p>
+  <button (click)="  getEmployeeTwoYears()">{{filterForSenEmp?"Show All employees":"All Employees more than two yrs."}}</button>
+</div>
+<div>
+  <p>
+    Get distinct departments and count of candidates in each
+  </p>
+  <button (click)="getDeptList()">{{!showDepList?"Show":"Hide"}} all departments</button>
+
+</div>
+<div>
+  <p>
+    Remove all candidates from 'Development' department.
+  </p>
+  <button (click)="removeDevEmpT()">Remove candidates of Development department temporary </button>
+  <button (click)="removeDevEmpP()">Remove candidates of Development department permanent </button>
+
+</div>
+
+<table>
+  <tr>
+    <th>
+      Id
+    </th>
+    <th>
+      Name
+    </th>
+    <th>
+      Department
+    </th>
+    <th>
+      Joining Date
+    </th>
+  </tr>
+  <tr *ngFor="let e of (employeeList |namefilter:searchInput )as results ">
+    <td>{{e.id}}</td>
+    <td>{{e.name}}</td>
+    <td>{{e.department}}</td>
+    <td>{{e.joining_date }}</td>
+  </tr>
+
+
+</table>
+
+<div *ngIf="showDepList">
+  <table>
+    <tr>
+      <th>
+        Department Name
+      </th>
+      <th>
+        Number of Employee
+      </th>
+    </tr>
+    <tr *ngFor="let d of depList">
+      <td>
+        {{d.departmentName}}
+      </td>
+      <td>
+        {{d.employeeCount}}
+      </td>
+    </tr>
+  </table>
+
+</div>
